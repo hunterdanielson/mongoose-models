@@ -58,6 +58,7 @@ describe('app routes', () => {
                 ]);
             });
     });
+
     it('can get a specific meme by id', async() => {
         const myMeme = await Meme.create({
             url: 'meme.com',
@@ -73,6 +74,27 @@ describe('app routes', () => {
                         url: expect.any(String),
                         description: expect.any(String),
                         likes: 0,
+                        __v: 0
+                    }
+                );
+            });
+    });
+
+    it('can update a specific meme by id', async() => {
+        const myMeme = await Meme.create({
+            url: 'meme.com',
+            description: 'meme website'
+        });
+
+        return request(app)
+            .patch(`/memes/${myMeme._id}`)
+            .then(res => {
+                expect(res.body).toEqual(
+                    {
+                        _id: expect.anything(),
+                        url: expect.any(String),
+                        description: expect.any(String),
+                        likes: 1,
                         __v: 0
                     }
                 );

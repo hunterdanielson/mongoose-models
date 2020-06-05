@@ -17,7 +17,8 @@ describe('app routes', () => {
         return mongoose.connection.dropDatabase();
     });
     afterAll(() => {
-        return mongoose.connection.close();
+        return mongoose.connection.close()
+            .then(() => mongodb.stop());
     });
 
     it('can create a new meme', () => {
